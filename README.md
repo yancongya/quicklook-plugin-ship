@@ -51,6 +51,7 @@ cp -r quicklook-plugin-ship ~/.config/opencode/skills/
 4. **SVGA 1.x**: Need both JSZip AND JSZipUtils
 5. **Metadata panel**: Use `pinned` class for highlight, not `active`
 6. **i18n**: Use Translations.config, no hardcoded strings
+7. **Scaffold naming**: `Scripts/*.ps1`, `build.yml` and `AGENTS.md` all carry the source plugin's name — replace them all (workflow only changes `env.PLUGIN_NAME`) and grep for the old name afterwards; packaging logic lives only in `build.ps1`, never inline in the workflow
 
 ## References
 
