@@ -414,6 +414,13 @@ btnMeta.addEventListener('click', function(e) {
     // ...
 });
 
+// 透明底信息/性能一体面板（PagViewer v1.3.0 先例）：
+// 1. 信息与性能波形可合并为右下角透明底一体浮窗（支持拖拽），避免多浮窗遮挡画面
+// 2. 透明底必须配多层深色投影，防止白色文本与亮色动画重叠看不清：
+//    text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.85), 0 0 2px rgba(0,0,0,0.95);
+//    canvas { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.9)); }
+// 3. 文件结构树/图层详情等开发向面板保持独立抽屉按钮，所有标签与枚举名均走 Translations.config
+
 // 自定义滚动条
 #metaPanel::-webkit-scrollbar { width: 4px; }
 #metaPanel::-webkit-scrollbar-track { background: transparent; }
