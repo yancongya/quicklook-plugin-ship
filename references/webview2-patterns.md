@@ -450,4 +450,11 @@ btnMeta.addEventListener('click', function(e) {
 | Canvas 空白 | object-fit 不生效 | 手动计算 style.width/height |
 | 图片不显示 | 1.x/2.x 图片格式不同 | 检查是 string 还是 Uint8Array |
 | WebView2 缩放干扰 | Ctrl+滚轮触发 WebView2 缩放 | 设置 IsZoomControlEnabled = false |
+| `Could not load System.Runtime.CompilerServices.Unsafe 4.0.4.1` | `net462` 插件加载时无 `bindingRedirect` | 改用 GAC 内置 `System.Web.Extensions` (`JavaScriptSerializer`) |
+| `<video>` 报 `code 4` (`SRC_NOT_SUPPORTED`) | `SetVirtualHostNameToFolderMapping` 抢走请求且缺 Range 支持 | 改用独立域名 + `WebResourceRequested` + `RangeStream` 返回 `206` 与 CORS 头 |
 - ContextObject：https://github.com/QL-Win/QuickLook.Common/blob/master/Plugin/ContextObject.cs
+
+### 统一 Loading 动画与 CLI 端到端测试
+
+- **统一 WPF 过渡 Loading**：在 `UserControl` 放居中的黑白灰旋转圆环 `LoadingPanel`（`LoadingSpinner` + 本地化 `TxtStatus`），`loaded` 时折叠 `LoadingPanel`，`ShowError` 时隐藏 `LoadingSpinner` 仅展示错误信息。
+- **CLI 无弹窗测试（`Scripts/test-cli.ps1`）**：在 PowerShell `-STA` 下直接加载 `bin\Release\QuickLook.Plugin.*.dll` 跑通 `CanHandle -> Prepare -> View -> WebView2`，并通过临时重定向 `$env:TEMP` 隔离 `UserDataFolder` 文件锁冲突，配合 `CoreWebView2.CapturePreviewAsync` 实现截图视觉自检。
